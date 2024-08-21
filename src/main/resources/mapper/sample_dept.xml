@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ddimtech.sbproject.dept.mapper.DeptMapper">
+    <!-- 공통으로 사용 될 쿼리 조각(columns)을 정의 -->
+    <sql id="columnDept">
+        deptno, dname, loc, created_at, created_by, updated_by, updated_at
+    </sql>
+
+    <sql id="conditionDept">
+        <trim prefix="WHERE" prefixOverrides="AND|OR">
+            <if test="@com.ddimtech.sbproject.common.CommonComparator@isNotEmpty(dname)">
+                AND dname = #{dname}
+            </if>
+            <if test="@com.ddimtech.sbproject.common.CommonComparator@isNotEmpty(loc)">
+                AND loc = #{loc}
+            </if>
+            AND DELETED = false
+        </trim>
+    </sql>
+
+    <select id="selectDepts" parameterType="DeptSearchReqDto" resultType="DeptVo">
+        SELECT
+        <include refid="columnDept"></include>
+        FROM
+        dept
+        <include refid="conditionDept"></include>
+        <if test="@com.ddimtech.sbproject.common.CommonComparator@isNotEmptyForDynamicSql(sort, orderBy)">
+            ORDER BY ${sort} ${orderBy}
+        </if>
+        <if test="@com.ddimtech.sbproject.common.CommonComparator@isEmptyForDynamicSql(sort, orderBy)">
+            ORDER BY deptno DESC
+        </if>
+        LIMIT #{pageSize} OFFSET #{offset}
+    </select>
+
+    <select id="selectDept" parameterType="long" resultType="DeptVo">
+        SELECT
+        <include refid="columnDept"></include>
+        FROM
+        dept
+        WHERE
+        deptno = #{deptno}
+    </select>
+
+    <select id="countDept" parameterType="DeptSearchReqDto" resultType="int">
+        SELECT
+        COUNT(*)
+        FROM
+        dept
+        <include refid="conditionDept"></include>
+    </select>
+
+    <insert id="insertDept" parameterType="DeptCreateReqDto">
+        INSERT INTO dept(dname, loc, created_by, created_at, updated_by, updated_at)
+        VALUES (#{dname}, #{loc}, 1, now(), 1, now() )
+    </insert>
+
+    <update id="updateDept" parameterType="DeptUpdateReqDto">
+        UPDATE dept
+        SET dname = #{dname},
+            loc = #{loc},
+            updated_by = #{updatedBy},
+            updated_at = NOW()
+        WHERE
+            deptno = #{deptno}
+    </update>
+
+    <update id="deleteDept" parameterType="Long">
+        UPDATE dept
+        SET
+            deleted = true,
+            deleted_by = #{deletedBy},
+            deleted_at = now()
+        WHERE
+            deptno = #{deptno}
+    </update>
+</mapper>

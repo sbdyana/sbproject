@@ -1,0 +1,30 @@
+server:
+  port: 8091
+  tomcat:
+    accesslog:
+      enabled: true
+      file-date-format: .yyyy-MM-dd
+      pattern: '%h %l %u [%{yy-MM-dd:HH:mm:ss}t] "%r" %s %b %D %{User-Agent}i'
+      rename-on-rotate: true
+
+  error:
+    whitelabel:
+      enabled: false
+
+spring:
+  datasource:
+    url: jdbc:postgresql://127.0.0.1:5432/sbproject
+    driver-class-name: org.postgresql.Driver
+    username: sbproject
+    password: sbproject
+
+logging:
+  level:
+    root: info
+    com.ddimtech.llmops: debug
+
+springdoc:
+  swagger-ui:
+    path: /docs
+    tags-sorter: alpha
+    operations-sorter: method

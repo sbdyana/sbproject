@@ -1,0 +1,13 @@
+services:
+  sbproject_db:
+    container_name: sbproject_db
+    image: postgres:13.16
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=sbproject
+      - POSTGRES_PASSWORD=sbproject
+      - POSTGRES_DB=sbproject
+    volumes:
+      - ${HOME}/data/sbproject/docker_db_volume/:/var/lib/postgresql/data
+      - ./config/init.sql:/docker-entrypoint-initdb.d/init.sql

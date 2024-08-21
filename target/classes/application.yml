@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: sbproject
+  servlet:
+    multipart:
+      max-file-size: 1000MB
+      max-request-size: 1000MB
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.ddimtech.sbproject.**.vo, com.ddimtech.sbproject.**.dto
+  configuration:
+    map-underscore-to-camel-case: true
+
+app:
+  sql-injection:
+    allowed-pattern: ".*[^a-zA-Z0-9_\\s,].*"
