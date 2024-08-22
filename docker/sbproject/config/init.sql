@@ -44,7 +44,7 @@ create table dept
     loc        varchar(20) not null,
     created_by bigint      not null,
     created_at timestamp   not null,
-    updated_by integer     ,][]
+    updated_by integer     not null,
     updated_at timestamp   not null,
     deleted boolean default false,
     deleted_by bigint      ,
