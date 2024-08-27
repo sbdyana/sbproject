@@ -46,18 +46,24 @@ public class DeptController {
 
     @GetMapping("{id}")
     @Operation(summary = "dept 개별")
+    // @PathVariable은 1개의 데이터만 받아올 수 있다.
+    // URL 경로의 일부를 메소드 파라미터에 매핑할 때 사용된다.
+    // URL에서 {id} 값 가져와서 detail 메소드로
     public CommonResult detail(@PathVariable("id") Long id) {
         return deptService.detail(id);
     }
 
     @PostMapping("create")
     @Operation(summary = "dept 생성")
+    // @RequestBody 어노테이션은 HTTP 요청의 본문(body)을 Java 객체로 변환하는 데 사용된다. body에서 내용 받아서 create 해야함
+    // @Valid 데이터의 유효성을 검사하는 데 도움을 주는 어노테이션으로 @RequestBody와 함께 쓰일 때 클라이언트로부터 전달받은 JSON 데이터가 특정 조건을 만족시키는지 확인하는 데 사용된다.
     public CommonResult create(@RequestBody @Valid DeptCreateReqDto deptCreateReqDto,
-                               BindingResult bindingResult) throws ApiBindException {
+                               BindingResult bindingResult) throws ApiBindException { // bindingResult객체는 @Valid 어노테이션에 의해 수행된 유효성 검사 결과를 담고 있다.
 
-        if (bindingResult.hasErrors()) {
+        if (bindingResult.hasErrors()) { // 유효성 검사결과가 true 면 에러 처리
             throw new ApiBindException(bindingResult);
         }
+        // 유효성 검사 통과 후 Service의 create 로
         deptService.create(deptCreateReqDto);
         return CommonResult.ok();
     }
@@ -76,6 +82,9 @@ public class DeptController {
 
     @PostMapping("delete")
     @Operation(summary = "dept 삭제")
+    // @RequestParam은 여러개의 데이터를 받아올 수 있다.
+    // @RequestParam은 Get/Post 방식으로 uri를 이용하거나, ajax 요청을 통해 body에 담아온 데이터를 여러 타입으로 받을 수 있다.
+    // 보안이 필요한 회원가입등의 작업을 할 때도 RequestParam 방식이 필요하다.
     public CommonResult delete(@RequestParam("id") Long id) {
 
         if (deptService.delete(id, 1L) == 0) {
