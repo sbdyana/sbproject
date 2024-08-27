@@ -26,6 +26,9 @@ public class CommonResult {
         this.message = code.getMessage();
     }
 
+    // 객체 생성
+    // Service : list
+    // code로 SUCCESS, data > SUCCESS의 200과 success 메세지 / data
     private CommonResult(CommonResultCode code, Object data) {
         this.code = code.getResultCode();
         this.message = code.getMessage();
@@ -44,6 +47,9 @@ public class CommonResult {
         return new CommonResult(CommonResultCode.SUCCESS);
     }
 
+    // 정적 팩토리 메서드
+    // Service : list
+    // 리턴 시 CommonResultCode.SUCCESS 값 가져와서 CommonResult 객체 생성
     public static CommonResult data(Object data) {
         return new CommonResult(CommonResultCode.SUCCESS, data);
     }
