@@ -11,18 +11,24 @@ public enum CommonResultCode {
      * 성공
      */
     // 성공을 나타내는 상수로, HTTP 상태 코드와 success 메시지를 갖는다.
-    SUCCESS(200, "success"),
+    SUCCESS(2000, "success"),
 
     /**
      * client error 4xx
      */
-    BAD_REQUEST(400, "bad request"),
-    RESOURCE_NOT_FOUND(404, "requested resource could not be found"),
+    BAD_REQUEST(4000, "bad request"),
+    USER_NOT_FOUND(4001, "user not found"),
+    UNAUTHORIZED(4003, "unauthorized"),
+    NO_HANDLER_FOUND(4004, "no handler found"),
+    RESOURCE_NOT_FOUND(4005, "requested resource could not be found"),
+    EXPIRED_ACCESS_TOKEN(4101, "expired access token"),
+    EXPIRED_REFRESH_TOKEN(4102, "expired refresh token, try login again"),
+    INVALID_TOKEN(4103, "invalid token"),
 
     /**
      * server error 5xx
      */
-    INTERNAL_SERVER_ERROR(500, "there was a problem with data processing, contact the administrator.");
+    INTERNAL_SERVER_ERROR(5000, "there was a problem with data processing, contact the administrator.");
 
     // final로 초기되어 있는 필드들 > 한 번 초기화된 후에는 값이 변경되지 않는다.
     private final int resultCode;
@@ -30,7 +36,7 @@ public enum CommonResultCode {
 
     // 생성자 private
     // 싱글톤 패턴은 클래스의 인스턴스를 하나만 생성하도록 제한하는 디자인 패턴으로 이를 위해 생성자를 private으로 선언하고 클래스 내부에서 단 하나의 인스턴스를 생성하여 공유한다.
-    // 이런 경우 외부에서 new CommonResultCode()를 호출할 수 없고
+    // 이런 경우 외부에서 new CommonResultCode()를 호출할 수 없음.
     private CommonResultCode(int resultCode, String message) {
         this.resultCode = resultCode;
         this.message = message;
