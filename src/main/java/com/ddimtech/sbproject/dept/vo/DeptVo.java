@@ -1,10 +1,8 @@
 package com.ddimtech.sbproject.dept.vo;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
 import java.time.LocalDateTime;
 
 @Setter
@@ -26,4 +24,17 @@ public class DeptVo {
     private Long updatedBy;
     @Schema(description = "수정일")
     private LocalDateTime updatedAt;
-}
+
+    @Builder
+    public DeptVo(Long deptno, String dname, String loc, Long createdBy, LocalDateTime createdAt, Long updatedBy) {
+        this.deptno = deptno;
+        this.dname = dname;
+        this.loc = loc;
+        this.createdBy = createdBy;
+        this.createdAt = createdAt;
+        this.updatedBy = updatedBy;
+        this.updatedAt = updatedAt;
+    }
+
+    }
+
