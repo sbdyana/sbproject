@@ -21,6 +21,7 @@ public class SbprojectApplication {
     }
 
     @PostConstruct
+    // Bean 아닌 곳에서 Bean 주입 불가능인데 가능하게 만들어주는 .
     public void init(){
         BeanContext.init(context);
     }
