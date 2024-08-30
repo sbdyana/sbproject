@@ -13,18 +13,27 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://127.0.0.1:5432/sbproject
+    url: ENC(/NqesvJNUZWjE4AwadpTzF7DneGem8Up1F+sdj+vg3qS/VEwBq+OHgzKsFeCcJQ9oVsjbave4U4=)
+    #url: jdbc:postgresql://127.0.0.1:5432/llmops
     driver-class-name: org.postgresql.Driver
-    username: sbproject
-    password: sbproject
+    username: ENC(7nwsurvoUPBzbhJnaPjgIIQ0mwpoOg39)
+    #username: llmops
+    password: ENC(7nwsurvoUPBzbhJnaPjgIIQ0mwpoOg39)
+    #password: llmops
+
 
 logging:
   level:
     root: info
-    com.ddimtech.llmops: debug
+    com.ddimtech.sbproject: debug
 
 springdoc:
   swagger-ui:
     path: /docs
     tags-sorter: alpha
     operations-sorter: method
+
+sbproject:
+  #jwt-secret: 443ec09a5fe52d2e39a7a1964624605edc22b9bccca9122285b7252be153212f
+  jwt-secret: ENC(HYLzRM8mENqzHEIg8cGCJAn1KF7lIenAEFcl0gCAP7peRLOKtbAZCHBDBMND9lU4DCFmPu7aoEpdNNisjUcktWmFrM112tohfeK8YIetumrF1fFJgTR2+g==)
+

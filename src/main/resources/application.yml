@@ -13,5 +13,13 @@ mybatis:
     map-underscore-to-camel-case: true
 
 app:
+  token-expired-time: 1200000 #milliseconds 60 * 60 * 2 * 1000 = 20분
+  jwt-secret: 443ec09a5fe52d2e39a7a1964624605edc22b9bccca9122285b7252be153212f
   sql-injection:
     allowed-pattern: ".*[^a-zA-Z0-9_\\s,].*"
+
+
+jasypt:
+  encryptor:
+    algorithm: PBEWithMD5AndDES
+    password: ${jasypt.encryptor.password}
